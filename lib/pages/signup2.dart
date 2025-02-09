@@ -46,8 +46,114 @@ class  UserSignUp2 extends State<SignUp2>{
                 key: formKey,
                 child: Column(
                   children: [
-                    Text("SignUp", style: TextStyle(fontSize: 50),
-                        textAlign: TextAlign.center),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("SignUp", style: TextStyle(fontSize: 50), textAlign: TextAlign.center),
+                        SizedBox(width: 10),
+                        IconButton(
+                          icon: Icon(Icons.info_outline, color: Colors.red, size: 30),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text("SignUp Requirements",
+                                    style: TextStyle(fontWeight: FontWeight.bold)),
+                                content: SingleChildScrollView( // Prevents overflow
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.8, // Adjust width dynamically
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Icon(Icons.check_circle, color: Colors.green),
+                                            SizedBox(width: 8),
+                                            Expanded( // Prevents text overflow
+                                              child: Text("First Name: Must be valid name",style:TextStyle(fontSize: 15)),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.check_circle, color: Colors.green),
+                                            SizedBox(width: 8),
+                                            Expanded(
+                                              child: Text("Last Name: Must be valid name",style:TextStyle(fontSize: 15)),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.check_circle, color: Colors.green),
+                                            SizedBox(width: 8),
+                                            Expanded(
+                                              child: Text("Phone No: Must be 10 digits",style:TextStyle(fontSize: 15)),
+                                            ),
+                                          ],
+                                        ),
+
+                                        Row(
+                                          children: [
+                                            Icon(Icons.check_circle, color: Colors.green),
+                                            SizedBox(width: 8),
+                                            Expanded( // Prevents text overflow
+                                              child: Text("Email: Must be valid Mail ID",style:TextStyle(fontSize: 15)),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.check_circle, color: Colors.green),
+                                            SizedBox(width: 8),
+                                            Expanded( // Prevents text overflow
+                                              child: Text("Password: Must have ",style:TextStyle(fontSize: 15)),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(width: 8),
+                                            Expanded( // Prevents text overflow
+                                              child: Text("      UpperCase, LowerCase, Digit,",style:TextStyle(fontSize: 15)),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(width: 8),
+                                            Expanded( // Prevents text overflow
+                                              child: Text("      Special Character(%,!,@,#,",style:TextStyle(fontSize: 15)),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(width: 8),
+                                            Expanded( // Prevents text overflow
+                                              child: Text("      \$,&,*,~) and Min length of 8",style:TextStyle(fontSize: 15)),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text("OK", style: TextStyle(color:  Color(0xFF0F52BA))),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 20,),
 
                     TextFormField(
@@ -56,10 +162,20 @@ class  UserSignUp2 extends State<SignUp2>{
                       keyboardType: TextInputType.name,
                       controller: emailcontroller,
                       validator: (String? value) {
-                        if (0 == value!.length)
-                          return " Enter Your Email ";
-                        else
-                          return null;
+                       RegExp emailRegex = RegExp(
+                            r'^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+                        );
+
+
+                       if (value!.isEmpty) {
+                         return 'Enter Your Email';
+                       } else {
+                         if (!emailRegex.hasMatch(value!)) {
+                           return 'Enter Valid Email';
+                         } else {
+                           return null;
+                         }
+                       }
                       },
                       decoration: InputDecoration(
                         // floatingLabelStyle: TextStyle(color:focusNode.hasFocus? Colors.blue:Colors.grey[600]),
@@ -94,13 +210,13 @@ class  UserSignUp2 extends State<SignUp2>{
                       obscureText: notVisible,
                       controller: passwordcontroller,
                       validator: (String? value) {
-                        RegExp regex =
+                        RegExp pwRegex =
                         RegExp(
                             r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[%!@#\$&*~]).{8,}$');
                         if (value!.isEmpty) {
                           return 'Enter Your Password';
                         } else {
-                          if (!regex.hasMatch(value!)) {
+                          if (!pwRegex.hasMatch(value!)) {
                             return 'Enter Valid Password';
                           } else {
                             return null;
@@ -186,7 +302,7 @@ class  UserSignUp2 extends State<SignUp2>{
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 //minimumSize: const Size.fromHeight(60),
-                                  backgroundColor: Colors.blue[200],
+                                  backgroundColor: Color(0xFF0F52BA),
                                   shape: RoundedRectangleBorder( //to set border radius to button
                                       borderRadius: BorderRadius.circular(50)
                                   )),
@@ -195,7 +311,7 @@ class  UserSignUp2 extends State<SignUp2>{
                                 Navigator.pop(context);
                               },
                               child: Text("Previous", style: TextStyle(
-                                  color: Colors.black, fontSize: 25),)),
+                                  color: Colors.white, fontSize: 25),)),
                         ),
                           SizedBox(width: 8,),
                           Container(
@@ -205,7 +321,7 @@ class  UserSignUp2 extends State<SignUp2>{
                                 style: ElevatedButton.styleFrom(
 
                                   // minimumSize: const Size.fromHeight(60),
-                                    backgroundColor: Colors.blue[200],
+                                    backgroundColor: Color(0xFF0F52BA),
                                     shape: RoundedRectangleBorder( //to set border radius to button
                                         borderRadius: BorderRadius.circular(50)
                                     )),
@@ -217,7 +333,7 @@ class  UserSignUp2 extends State<SignUp2>{
                                   //  Home()));
                                 },
                                 child: Text("SignUp", style: TextStyle(
-                                    color: Colors.black, fontSize: 25),)),
+                                    color: Colors.white, fontSize: 25),)),
                           ),
 
                         ]
@@ -239,7 +355,7 @@ class  UserSignUp2 extends State<SignUp2>{
                               "Login",
                               style: TextStyle(
                                   fontSize: 15,
-                                  color: Colors.blue,
+                                  color: Color(0xFF0F52BA),
                                   fontWeight: FontWeight.bold),
                             ))
                       ],
@@ -272,7 +388,7 @@ class  UserSignUp2 extends State<SignUp2>{
     if (user != null) {
       showToastMsg(message: "User is successfully created");
 
-      Navigator.pushNamedAndRemoveUntil(context, "/home", (r) => false,arguments: {'email':email});
+      Navigator.pushNamedAndRemoveUntil(context, "/home", (r) => false,arguments: {'uid':user.uid });
     } //else {
     //showToastMsg(message: "Some error happend");
     //}

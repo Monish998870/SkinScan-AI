@@ -19,11 +19,13 @@ class FirebaseAuthService {
          // .set({'FirstName':firstname,'LastName':lastname,'PhoneNumber':phonenumber,'Email':email,'password':password}) // <-- Your data
           //.then((_) => print('Added'))
           //.catchError((error) => print('Add failed: $error'));
+
+      String uid = credential.user?.uid ?? 'No UID found';
       DocumentReference<Map<String, dynamic>> users = FirebaseFirestore
           .instance
           .collection('/Users')
-          .doc(email);
-      var myJSONObj = {'FirstName':firstname,'LastName':lastname,'PhoneNumber':phonenumber,'Email':email,'Password':password};
+          .doc(uid);
+      var myJSONObj = {'FirstName':firstname,'LastName':lastname,'PhoneNumber':phonenumber,'Email':email};
       users
           .set(myJSONObj)
           .then((value) => print("User with CustomID added"))

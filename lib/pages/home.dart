@@ -42,21 +42,21 @@ class HomeView extends State<Home>{
         
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(60),
-                        backgroundColor: Colors.blue[200],
+                        backgroundColor:  Color(0xFF0F52BA),
                         shape: RoundedRectangleBorder( //to set border radius to button
                             borderRadius: BorderRadius.circular(50)
                         )),
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Testing()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Testing(docId: data?['uid']),));
         
                     },
-                    child: Text("Take Test",style: TextStyle(color: Colors.black,fontSize:25),)),
+                    child: Text("Take Test",style: TextStyle(color: Colors.white,fontSize:25),)),
                 SizedBox(height: 30,),
                 ElevatedButton(
         
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(60),
-                        backgroundColor: Colors.blue[200],
+                        backgroundColor:  Color(0xFF0F52BA),
                         shape: RoundedRectangleBorder( //to set border radius to button
                             borderRadius: BorderRadius.circular(50)
                         )),
@@ -64,20 +64,20 @@ class HomeView extends State<Home>{
                       Navigator.pushNamed(context,'/details');
                       //Navigator.push(context, MaterialPageRoute(builder: (context)=>Details()));
                     },
-                    child: Text("Disease Info",style: TextStyle(color: Colors.black,fontSize:25),)),
+                    child: Text("Disease Info",style: TextStyle(color: Colors.white,fontSize:25),)),
                 SizedBox(height: 30,),
                 ElevatedButton(
         
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(60),
-                        backgroundColor: Colors.blue[200],
+                        backgroundColor:  Color(0xFF0F52BA),
                         shape: RoundedRectangleBorder( //to set border radius to button
                             borderRadius: BorderRadius.circular(50)
                         )),
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Tracking()));
                     },
-                    child: Text("Hospitals Nearby",style: TextStyle(color: Colors.black,fontSize:25),))
+                    child: Text("Hospitals Nearby",style: TextStyle(color: Colors.white,fontSize:25),))
         
               ],
             ),
@@ -110,7 +110,7 @@ class ProfileIcon extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-            builder: (context) => Profile(docId: data?['email']),));// Pass the docId here
+            builder: (context) => Profile(docId: data?['uid']),));// Pass the docId here
         else if (result=='MediMate')
           Navigator.push(context, MaterialPageRoute(builder: (context) => MediMate()));
 

@@ -3,9 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:skinscan_ai/pages/chat_assitant/MediMate.dart';
 import 'package:skinscan_ai/pages/detials.dart';
+import 'package:skinscan_ai/pages/editprofile.dart';
 import 'package:skinscan_ai/pages/home.dart';
 import 'package:skinscan_ai/pages/intro.dart';
 import 'package:skinscan_ai/pages/login.dart';
+import 'package:skinscan_ai/pages/passwordreset.dart';
+import 'package:skinscan_ai/pages/passwordresetmailresend.dart';
 import 'package:skinscan_ai/pages/profile.dart';
 import 'package:skinscan_ai/pages/signup.dart';
 import 'package:skinscan_ai/pages/signup2.dart';
@@ -29,17 +32,25 @@ Future<void> main() async {
     await Firebase.initializeApp();
   }
   runApp(MaterialApp(
+
+
+
+    
+      debugShowCheckedModeBanner: false,
       initialRoute: '/login',
       routes:{'/login':(context)=>Login(),
         '/home':(context)=>Home(),
         '/signup':(context)=>SignUp(),
         '/signup2':(context)=>SignUp2(),
+        '/editprofile':(context)=>EditProfile(docId: '',),
         '/profile':(context)=>Profile(docId: '',),
-        '/testing':(context)=>Testing(),
+        '/testing':(context)=>Testing(docId: '',),
         '/tracking':(context)=>Tracking(),
         '/details':(context)=>Details(),
         '/medimate':(context)=>MediMate(),
-        '/intro':(context)=>Intro()
+        '/intro':(context)=>Intro(),
+        '/passwordreset':(context)=>ResetPwPage(),
+        '/passwordresetmailresend':(context)=>PasswordResetResentPage(mail: '',),
       })
   );
 }

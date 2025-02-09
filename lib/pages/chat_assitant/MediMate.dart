@@ -31,22 +31,36 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final List<Message> _messages = [];
 
-  Future<void> sendMessage() async{
-    final message = _userInput.text;
+  Future<void> sendMessage() async {
+    final message = _userInput.text.trim();
 
+    // Add the user's message to the chat
     setState(() {
       _messages.add(Message(isUser: true, message: message, date: DateTime.now()));
     });
 
+    // Check for the specific question and provide a predefined response
+    if (message.toLowerCase() == "who are you" ||message.toLowerCase() == "who are you?"||message.toLowerCase() == "who are you ?"||message.toLowerCase() == "who are you ? ") {
+      setState(() {
+        _messages.add(Message(isUser: false, message: "I am MediMate developed by SkinnScan AI team. I am your Personal Medical Assistant. I follow instructions extremely well. How may I assist you today?", date: DateTime.now()));
+      });
+      _userInput.clear(); // Clear the input field
+      return;
+    }
+
+    // Send the message to the Generative AI API
     final content = [Content.text(message)];
     final response = await model.generateContent(content);
 
-
+    // Add the AI response to the chat
     setState(() {
-      _messages.add(Message(isUser: false, message: response.text?? "", date: DateTime.now()));
+      _messages.add(Message(isUser: false, message: response.text ?? "", date: DateTime.now()));
     });
 
+    // Clear the input field
+    _userInput.clear();
   }
+
 
   @override
   Widget build(BuildContext context) {

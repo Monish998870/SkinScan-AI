@@ -3,7 +3,7 @@
     >
     <application
 
-        android:label="skinscan_ai"
+        android:label="SkinScan AI"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
